@@ -1,17 +1,38 @@
 aid: 5lmeet
-name: 5lmeet
-description: '5lmeet is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+name: 5Lmeet
+description: >-
+  5Lmeet (Chinese brand 共享际, operated by 优享创智 / UR Community) is a Beijing-based urban
+  space operator founded in December 2015 by Dr. Mao Daqing, the former vice-chairman of China
+  Vanke and founder of Ucommune. It runs an "urban renewal and spatial reconstruction" model that
+  blends co-working, co-living, food and beverage, retail, fitness and cultural programming into
+  single mixed-use compounds — the name stands for livable, linked, liberal, lively and landscape.
+  Its Dongsi compound in Beijing pairs a basement co-working floor with a cafe and bakery, a gym,
+  the Hatchery food incubator, the Unread bookstore, a 24-hour convenience store, residential units
+  and a rooftop garden. The company raised roughly RMB 400 million in October 2016 and a USD 14.55
+  million Series B in early 2017 led by GIC, Singapore's sovereign wealth fund, alongside Kaifeng
+  Culture Tourism Investment Group, and is valued in the secondary market rather than publicly
+  listed. 5Lmeet is a real-estate and hospitality operator, not a software vendor: the only software
+  it has published is an end-user iPad visitor-management app for its own front desks, and it
+  operates no developer program, public API, SDK or machine-readable contract of any kind.
 url: https://raw.githubusercontent.com/api-evangelist/5lmeet/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-source-url: https://www.hiive.com/securities/5lmeet-stock
+x-tier: profiled
+x-tier-reason: enrichment-pass
 specificationVersion: '0.20'
 created: '2026-09-05'
 modified: '2026-09-05'
 tags:
 - Company
+- Real Estate
+- Coworking
+- Co-Living
+- Workspace
+- Property Technology
+- Hospitality
+- Urban Development
+- China
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -20,4 +41,46 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: http://www.5lmeet.com/
+- type: SecondaryMarket
   url: https://www.hiive.com/securities/5lmeet-stock
+- type: DomainSecurity
+  url: security/5lmeet-domain-security.yml
+x-website-note: >-
+  http://www.5lmeet.com/ is the website address 5Lmeet itself publishes, but from a US vantage on
+  2026-09-05 only one of its three A records answered and it served the stock unconfigured
+  "IIS Windows Server" welcome page over plain HTTP; there is no TLS listener on any of them.
+  Geo-restriction of the two unreachable Alibaba Cloud Beijing addresses cannot be ruled out, so
+  the pointer is kept rather than removed, with the observation recorded here and in
+  security/5lmeet-domain-security.yml.
+x-enrichment:
+  date: '2026-09-05'
+  status: minimal
+  artifacts_added: 2
+  pass: local-v3
+x-coverage:
+  state: none
+  reason: no-developer-program
+  detail: >-
+    5Lmeet is a Beijing co-working and co-living property operator whose only shipped software is
+    an end-user iPad visitor-management app for its own front desks — there is no developer
+    portal, no API, and no machine-readable contract anywhere: all 22 discovery and /.well-known/
+    paths returned genuine IIS 404s on www.5lmeet.com (a negative-control path 404'd too, so the
+    host does not echo), and api.5lmeet.com resolves to 101.201.52.28 but accepts no connection
+    on port 80 or 443.
+  evidence:
+    - url: http://www.5lmeet.com/
+      status: 200
+    - url: http://www.5lmeet.com/openapi.json
+      status: 404
+    - url: http://www.5lmeet.com/.well-known/security.txt
+      status: 404
+    - url: http://www.5lmeet.com/.well-known/agent-card.json
+      status: 404
+    - url: http://www.5lmeet.com/llms.txt
+      status: 404
+    - url: http://5lmeet.com/apis.json
+      status: 404
+    - url: http://api.5lmeet.com/
+      status: 0
+  checked: '2026-09-05'

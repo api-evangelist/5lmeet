@@ -1,0 +1,75 @@
+generated: '2026-09-05'
+method: probed
+source: live HTTP probes of every host the 5Lmeet record knows, 2026-09-05
+note: >-
+  Every named /.well-known/ path (plus the APIs.json root paths) was probed on the company
+  domain and on the two DNS-resolving subdomains. Nothing was served. The apex and www hosts
+  answer only over plain HTTP — there is no TLS listener on port 443 — and every path returns
+  a genuine IIS 404 (1163 bytes, text/html), not a soft-200 catch-all. A negative-control path
+  that cannot exist also returned 404, so this host does not echo paths and the negatives are
+  trustworthy. api.5lmeet.com and m.5lmeet.com resolve in DNS to 101.201.52.28 (Alibaba Cloud,
+  Beijing) but nothing listens on port 80 or 443, so no path could be probed there at all.
+  NO WellKnown or SecurityTxt pointer is emitted: this file records an absence, not a surface.
+hit_count: 0
+path_echo_control: passed
+soft_404_control:
+  path: /.well-known/5lmeet-negative-control-7f3ab91c.json
+  status: 404
+  bytes: 1163
+hosts:
+  - host: http://www.5lmeet.com
+    note: serves the unconfigured "IIS Windows Server" default welcome page; no HTTPS listener
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/apis.json
+        status: 404
+      - path: /apis.json
+        status: 404
+      - path: /apis.yml
+        status: 404
+  - host: http://5lmeet.com
+    note: same origin as www; apex probed for the primary discovery paths
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /apis.json
+        status: 404
+  - host: http://api.5lmeet.com
+    note: >-
+      resolves to 101.201.52.28 but no service listens on port 80 or 443 (connection timeout);
+      presumed the retired backend host for the 5Lmeet mobile / visitor apps
+    unreachable: true
+    documents:
+      - path: /.well-known/security.txt
+        status: 0
+      - path: /openapi.json
+        status: 0
+      - path: /apis.json
+        status: 0
+  - host: http://m.5lmeet.com
+    note: resolves to 101.201.52.28; no service listens on port 80 or 443 (connection timeout)
+    unreachable: true
+    documents:
+      - path: /.well-known/security.txt
+        status: 0

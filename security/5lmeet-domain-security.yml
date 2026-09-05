@@ -1,0 +1,53 @@
+generated: '2026-09-05'
+method: probed
+source: live DNS/TLS/HTTP probes of 5lmeet.com, 2026-09-05
+note: >-
+  probe-domain-security.py returned "unreachable" and declined to write, because the domain has
+  no reachable HTTPS endpoint and carries none of the DNS security records it looks for. That
+  result is itself the measurement, so it is recorded here by hand from the same probes rather
+  than left as a silent gap. 5lmeet.com is a live, renewed registration (Alibaba Cloud Computing
+  (Beijing), expires 2027-04-12) with working Tencent Exmail MX records, so the domain is still
+  held and still used for corporate email — but it serves no TLS, publishes no SPF, DMARC, CAA
+  or DNSSEC, and its web root returns the stock unconfigured IIS welcome page.
+hosts:
+  - host: www.5lmeet.com
+    dns_a:
+      - 8.140.56.113
+      - 39.98.123.89
+      - 60.205.152.91
+    http: 200
+    http_body: unconfigured "IIS Windows Server" default page (703 bytes)
+    https: false
+    https_note: >-
+      no listener on port 443 on any of the three A records — connection refused on
+      39.98.123.89, timeout on 8.140.56.113 and 60.205.152.91
+    tls: null
+    hsts: false
+  - host: api.5lmeet.com
+    dns_a:
+      - 101.201.52.28
+    http: null
+    https: false
+    https_note: TCP connect fails on both port 80 and port 443 (filtered / no listener)
+  - host: m.5lmeet.com
+    dns_a:
+      - 101.201.52.28
+    http: null
+    https: false
+    https_note: TCP connect fails on both port 80 and port 443 (filtered / no listener)
+domains:
+  - domain: 5lmeet.com
+    registrar: Alibaba Cloud Computing (Beijing) Co., Ltd.
+    registry_expiry: '2027-04-12'
+    dnssec: false
+    caa: false
+    spf: false
+    dmarc: false
+    mx:
+      - mxbiz1.qq.com
+      - mxbiz2.qq.com
+    mx_note: Tencent Exmail — the domain is still in use for corporate email
+findings:
+  - no HTTPS is offered on any host under the domain; the site is plain HTTP only
+  - no HSTS, no CAA, no DNSSEC
+  - no SPF and no DMARC record, despite active Tencent Exmail MX records
