@@ -25,11 +25,11 @@ created: '2026-09-05'
 modified: '2026-09-05'
 tags:
 - Company
-- Real-Estate
+- Real Estate
 - Co-Working
 - Co-Living
 - Workspace
-- Property Technology
+- PropTech
 - Hospitality
 - Urban Development
 - China
@@ -43,6 +43,7 @@ tags_raw:
 - Hospitality
 - Urban Development
 - China
+- Real-Estate
 apis: []
 maintainers:
 - FN: Kin Lane
